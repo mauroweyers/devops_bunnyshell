@@ -1,0 +1,23 @@
+name: 'Jest testing with coverage'
+on:
+    push:
+        branches:
+            - main
+    pull_request:
+        branches:
+            - main
+defaults:
+    run:
+        shell: bash
+        working-directory: week1/
+jobs:
+    coverage:
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v3
+            - uses: actions/setup-node@v4
+            - uses: ArtiomTr/jest-coverage-report-action@v2
+              with:
+                 working-directory: week1/
+            - name: ESLint
+              run: npm run lint
