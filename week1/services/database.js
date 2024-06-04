@@ -8,10 +8,7 @@ if (process.env.NODE_ENV !== 'test') {
   console.log('not testing')
 
 
-  const databaseUsername = process.env.DB_USERNAME
-  const databasePassword = process.env.DB_PASSWORD
-  const databaseHostname = process.env.MONGO_URL
-  connectionString = `mongodb://${databaseUsername}:${databasePassword}@${databaseHostname}/`
+  connectionString = process.env.MONGO_URL
 
 
 
