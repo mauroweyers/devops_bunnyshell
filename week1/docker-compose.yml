@@ -9,14 +9,15 @@ services:
       - type: bind
         source: .
         target: /app
-
+    depends_on:
+      - mongo
 
   mongo:
     image: mongo
     restart: always
     environment:
-      MONGO_INITDB_ROOT_USERNAME: mijn_mooie_gebruikersnaam
-      MONGO_INITDB_ROOT_PASSWORD: mijn_mooie_wachtwoord
+      MONGO_INITDB_ROOT_USERNAME: mijn_mooie_gebruikersnaam #TODO: move to .env
+      MONGO_INITDB_ROOT_PASSWORD: mijn_mooie_wachtwoord # TODO: move to .env
     volumes:
       - ../mongo-db-database-files:/data/db
 
@@ -29,3 +30,5 @@ services:
       ME_CONFIG_MONGODB_ADMINUSERNAME: mijn_mooie_gebruikersnaam
       ME_CONFIG_MONGODB_ADMINPASSWORD: mijn_mooie_wachtwoord
       ME_CONFIG_MONGODB_URL: mongodb://mijn_mooie_gebruikersnaam:mijn_mooie_wachtwoord@mongo:27017/ 
+    depends_on:
+      - mongo
