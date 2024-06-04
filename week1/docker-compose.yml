@@ -4,7 +4,7 @@ services:
       context: .
       dockerfile: Dockerfile.dev
     ports:
-      - 80:3000
+      - "80:3000"
     volumes:
       - type: bind
         source: .
@@ -18,21 +18,21 @@ services:
     image: mongo
     restart: always
     volumes:
-      - mongodb
+      - mongodata:/data/db
     ports:
-      - 27017:27017
+      - "27017:27017"
 
   mongo-express:
     image: mongo-express
     restart: always
     ports:
-      - 8081:8081
+      - "8081:8081"
     environment:
       ME_CONFIG_MONGODB_ADMINUSERNAME: mijn_mooie_gebruikersnaam
       ME_CONFIG_MONGODB_ADMINPASSWORD: mijn_mooie_wachtwoord
-      ME_CONFIG_MONGODB_URL: mongodb://mongo:27017/
+      ME_source_CONFIG_MONGODB_URL: 'mongodb://mongo:27017/'
     depends_on:
       - mongo
 
 volumes:
-  - mongodb:/data/db
+  mongodata: {}
