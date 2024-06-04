@@ -9,6 +9,10 @@ services:
       - type: bind
         source: .
         target: /app
+    environment:
+      MONGO_URL: "mongo"
+      DB_USERNAME: "mijn_mooie_gebruikersnaam"
+      DB_PASSWORD: "mijn_mooie_wachtwoord"
     depends_on:
       - mongo
 
