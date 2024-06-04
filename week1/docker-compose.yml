@@ -18,7 +18,7 @@ services:
     image: mongo
     restart: always
     volumes:
-      - ../mongo-db-database-files:/data/db
+      - mongodb
     ports:
       - 27017:27017
 
@@ -33,3 +33,6 @@ services:
       ME_CONFIG_MONGODB_URL: mongodb://mongo:27017/
     depends_on:
       - mongo
+
+volumes:
+  - mongodb:/data/db
