@@ -1,0 +1,42 @@
+kind: Environment
+name: devops
+type: primary
+urlHandle: mauroweyers
+components:
+  -
+    kind: Database
+    name: mongo
+    dockerCompose:
+      image: mongo
+      ports:
+        - '27017:27017'
+      restart: always
+    volumes:
+      -
+        name: mongodata
+        mount: /data/db
+        subPath: ''
+  -
+    kind: Application
+    name: web
+    gitRepo: 'https://github.com/mauroweyers/devops_bunnyshell.git'
+    gitBranch: main
+    gitApplicationPath: week1
+    dockerCompose:
+      build:
+        context: ./week1
+        dockerfile: Dockerfile.dev
+      environment:
+        MONGO_URL: 'mongodb://mongo:27017/'
+      ports:
+        - '80:3000'
+    hosts:
+      -
+        hostname: 'web-{{ env.base_domain }}'
+        path: /
+        servicePort: 80
+volumes:
+  -
+    name: mongodata
+    size: 1Gi
+    type: disk
