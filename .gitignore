@@ -1,2 +1,3 @@
 mongo-db-database-files/
 .env
+node-modules/

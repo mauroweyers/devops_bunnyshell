@@ -24,9 +24,8 @@ services:
       - "27017:27017"
 
   prometheus:
-    image: prom/prometheus:latest
+    build: prometheus
     volumes:
-      - ./prometheus:/etc/prometheus
       - prometheus-data:/prometheus
     ports:
       - 9090:9090
