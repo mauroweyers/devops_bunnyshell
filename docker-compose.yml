@@ -43,8 +43,6 @@ services:
       - ./alertmanager:/etc/alertmanager
     ports:
       - 9093:9093
-    env_file:
-      - .env
 
   mail:
     build:
