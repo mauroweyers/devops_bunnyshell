@@ -1,21 +1,21 @@
 services:
   web:
     build:
-#      context: ./week1
+      context: ./api
       dockerfile: Dockerfile.dev
     ports:
       - "80:5000"
     volumes:
       - type: bind
-        source: ./week1
-        target: /app
+        source: ./api
+        target: /src
     environment:
-      MONGO_URL: 'mongodb://mongo:27017/'
+      MONGO_URL: 'mongodb://mongo-api:27017/'
       PORT: 5000
     depends_on:
-      - mongo
+      - mongo-api
 
-  mongo:
+  mongo-api:
     image: mongo
     restart: always
     volumes:
@@ -45,6 +45,21 @@ services:
       - 9093:9093
     env_file:
       - .env
+
+  mail:
+    build:
+      context: ./Mail
+      dockerfile: Dockerfile
+    volumes:
+      - type: bind
+        source: ./Mail
+        target: /app
+
+  rabbitMQ:
+    image: rabbitmq:3.13-management
+    restart: always
+    ports: # TODO: remove port
+      - 15672:15672
 
 volumes:
   mongodata: {}
