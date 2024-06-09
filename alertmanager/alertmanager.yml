@@ -1,0 +1,16 @@
+global:
+  smtp_smarthost: 'smtp.sendgrid.net:587'
+  smtp_from: 'mr.weyers@student.avans.nl'
+  smtp_auth_username: 'apikey'
+  smtp_auth_password: <SENDGRID_API_KEY>
+
+route:
+  receiver: 'email-notifications'
+  group_wait: 30s
+  group_interval: 5m
+  repeat_interval: 12h
+
+receivers:
+  - name: 'email-notifications'
+    email_configs:
+      - to: 'mauro.weyers@proton.me'

@@ -1,13 +1,13 @@
 services:
   web:
     build:
-      context: .
+#      context: ./week1
       dockerfile: Dockerfile.dev
     ports:
       - "80:5000"
     volumes:
       - type: bind
-        source: .
+        source: ./week1
         target: /app
     environment:
       MONGO_URL: 'mongodb://mongo:27017/'
@@ -26,17 +26,25 @@ services:
   prometheus:
     image: prom/prometheus:latest
     volumes:
-      - ../prometheus:/etc/prometheus
+      - ./prometheus:/etc/prometheus
       - prometheus-data:/prometheus
     ports:
       - 9090:9090
     command: --web.enable-lifecycle --config.file=/etc/prometheus/prometheus.yml
 
   grafana:
-    build: ../grafana
+    build: grafana
     ports:
       - 3000:3000
 
+  alertmanager:
+    image: prom/alertmanager
+    volumes:
+      - ./alertmanager:/etc/alertmanager
+    ports:
+      - 9093:9093
+    env_file:
+      - .env
 
 volumes:
   mongodata: {}
